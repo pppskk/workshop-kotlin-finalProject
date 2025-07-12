@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.WorkshopTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-07-12T03:54:54" hostname="Nesa.local" time="0.033">
+<testsuite name="com.example.WorkshopTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-07-12T05:30:46" hostname="Nesa.local" time="0.043">
   <properties/>
-  <testcase name="test searchRecipesByIngredientName finds correct recipes" classname="com.example.WorkshopTest" time="0.027"/>
-  <testcase name="test deleteRecipe returns false if not found" classname="com.example.WorkshopTest" time="0.002"/>
+  <testcase name="test searchRecipesByIngredientName finds correct recipes" classname="com.example.WorkshopTest" time="0.035"/>
+  <testcase name="test deleteRecipe returns false if not found" classname="com.example.WorkshopTest" time="0.001"/>
   <testcase name="test getRecipeById returns correct recipe" classname="com.example.WorkshopTest" time="0.0"/>
-  <testcase name="test addIngredientToRecipe adds a new ingredient" classname="com.example.WorkshopTest" time="0.0"/>
-  <testcase name="test getRecipeById returns null if not found" classname="com.example.WorkshopTest" time="0.0"/>
-  <testcase name="test deleteIngredientFromRecipe deletes an ingredient" classname="com.example.WorkshopTest" time="0.001"/>
-  <testcase name="test updateRecipe updates existing recipe" classname="com.example.WorkshopTest" time="0.001"/>
+  <testcase name="test addIngredientToRecipe adds a new ingredient" classname="com.example.WorkshopTest" time="0.001"/>
+  <testcase name="test getRecipeById returns null if not found" classname="com.example.WorkshopTest" time="0.001"/>
+  <testcase name="test deleteIngredientFromRecipe deletes an ingredient" classname="com.example.WorkshopTest" time="0.0"/>
+  <testcase name="test updateRecipe updates existing recipe" classname="com.example.WorkshopTest" time="0.002"/>
   <testcase name="test addRecipe successfully adds a new recipe" classname="com.example.WorkshopTest" time="0.0"/>
-  <testcase name="test getAllRecipes returns all recipes" classname="com.example.WorkshopTest" time="0.001"/>
+  <testcase name="test getAllRecipes returns all recipes" classname="com.example.WorkshopTest" time="0.0"/>
   <testcase name="test deleteIngredientFromRecipe returns false if ingredient not found" classname="com.example.WorkshopTest" time="0.0"/>
   <testcase name="test deleteRecipe successfully deletes a recipe" classname="com.example.WorkshopTest" time="0.0"/>
   <testcase name="test updateIngredientInRecipe updates existing ingredient" classname="com.example.WorkshopTest" time="0.0"/>

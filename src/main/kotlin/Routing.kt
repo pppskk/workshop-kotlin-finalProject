@@ -140,6 +140,11 @@ object Repository {
         return recipes.removeIf { it.id == id }
     }
 
+    fun getIngredientByIdInRecipe(recipeId: Int, ingredientId: Int): Ingredients? {
+        val recipe = getRecipeById(recipeId)
+        return recipe?.ingredients?.firstOrNull { it.id == ingredientId }
+    }
+
     fun addIngredientToRecipe(recipeId: Int, ingredientRequest: IngredientsRequest): Ingredients? {
         val recipe = getRecipeById(recipeId)
         return if (recipe != null) {
@@ -265,14 +270,36 @@ fun Application.configureRouting() {
             }
         }
 
-        get("/recipes/search") {
-            val ingredientName = call.request.queryParameters["ingredient"]
-            if (ingredientName == null) {
-                call.respond(HttpStatusCode.BadRequest, "Missing 'ingredient' query parameter")
+        get("/recipes/{recipeId}/ingredients") {
+            val recipeId = call.parameters["recipeId"]?.toIntOrNull()
+            if (recipeId == null) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid recipe ID format")
                 return@get
             }
-            val foundRecipes = Repository.searchRecipesByIngredientName(ingredientName)
-            call.respond(HttpStatusCode.OK, foundRecipes)
+
+            val recipe = Repository.getRecipeById(recipeId)
+            if (recipe != null) {
+                call.respond(HttpStatusCode.OK, recipe.ingredients) // คืนค่าเฉพาะรายการส่วนผสม
+            } else {
+                call.respond(HttpStatusCode.NotFound, "Recipe with ID $recipeId not found")
+            }
+        }
+
+        get("/recipes/{recipeId}/ingredients/{ingredientId}") {
+            val recipeId = call.parameters["recipeId"]?.toIntOrNull()
+            val ingredientId = call.parameters["ingredientId"]?.toIntOrNull()
+
+            if (recipeId == null || ingredientId == null) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid ID format for recipe or ingredient")
+                return@get
+            }
+
+            val ingredient = Repository.getIngredientByIdInRecipe(recipeId, ingredientId)
+            if (ingredient != null) {
+                call.respond(HttpStatusCode.OK, ingredient)
+            } else {
+                call.respond(HttpStatusCode.NotFound, "Ingredient with ID $ingredientId not found in Recipe ID $recipeId or Recipe not found")
+            }
         }
 
         post("/recipes/{recipeId}/ingredients"){
@@ -324,6 +351,16 @@ fun Application.configureRouting() {
             } else {
                 call.respond(HttpStatusCode.NotFound, "Ingredient with ID $ingredientId not found in Recipe ID $recipeId")
             }
+        }
+
+        get("/recipes/search") {
+            val ingredientName = call.request.queryParameters["ingredient"]
+            if (ingredientName == null) {
+                call.respond(HttpStatusCode.BadRequest, "Missing 'ingredient' query parameter")
+                return@get
+            }
+            val foundRecipes = Repository.searchRecipesByIngredientName(ingredientName)
+            call.respond(HttpStatusCode.OK, foundRecipes)
         }
     }
 }
